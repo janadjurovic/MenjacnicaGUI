@@ -15,9 +15,7 @@ private  List<Kurs> kursevi;
 	}
 	
 	public void dodajKurs(Kurs k){
-		if(k == null)
-			return;
-		
+		if(k == null) return;
 		kursevi.add(k);
 	}
 	

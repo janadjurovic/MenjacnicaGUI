@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.io.File;
 import java.util.List;
 
+import javax.print.attribute.TextSyntax;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import menjacnica.Menjacnica;
@@ -12,7 +13,7 @@ import menjacnica.Kurs;
 public class KontrolerGUI {
 	
 	private static MenjacnicaGUI prozor;
-	
+	private static Menjacnica menjacnica;
 	/**
 	 * Launch the application.
 	 */
@@ -20,6 +21,7 @@ public class KontrolerGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					menjacnica = new Menjacnica();
 					prozor = new MenjacnicaGUI();
 					prozor.setVisible(true);
 					prozor.setLocationRelativeTo(null);
@@ -54,6 +56,7 @@ public class KontrolerGUI {
 		
 	}
 
+	
 	public static void izadji() {
 		int povratnaVrednost = JOptionPane.showConfirmDialog(prozor.getContentPane(),
 				"Da li zelite da izadjete iz programa?", "Izlazak", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -68,6 +71,32 @@ public class KontrolerGUI {
 		JOptionPane jop = new JOptionPane();
 		jop.showMessageDialog(prozor, "Ime i prezime: Jana Djurovic \n Datum rodjenja: 07.04.1996", "Informacije", 1);
 		
+	}
+	
+	public static void unesiKurs(String naziv, String sifra, double prodajni, double kupovni, double srednji, String skraceniNaziv ){
+			String txt = naziv +"\t" + sifra +"\t"+ prodajni +"\t"+ kupovni+"\t" + srednji  +"\t"+skraceniNaziv;
+			prozor.dodajText(txt);
+			Kurs k = new Kurs();
+			k.setSifra(sifra);
+			k.setNaziv(naziv);
+			k.setSkraceniNaziv(skraceniNaziv);
+			k.setKupovniKurs(kupovni);
+			k.setSrednjiKurs(srednji);
+			k.setProdajniKurs(prodajni);
+			menjacnica.dodajKurs(k);
+			prozor.osvezi();
+		
+		
+	}
+	
+	public static void prikaziProzorDodajKurs(){
+		DodajKursGUI prozor = new DodajKursGUI();
+		prozor.setVisible(true);
+		prozor.setLocationRelativeTo(null);
+	}
+	
+	public static List<Kurs> vratiSve(){
+		return menjacnica.getKursevi();
 	}
 	
 	}

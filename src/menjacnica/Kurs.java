@@ -9,14 +9,7 @@ public class Kurs {
 	private double srednjiKurs;
 	private String skraceniNaziv;
 
-	public Kurs(String sifra, String naziv, double prodajniKurs, double kupovniKurs, double srednjiKurs, String skraceniNaziv) {
-		this.sifra = sifra;
-		this.naziv = naziv;
-		this.prodajniKurs = prodajniKurs;
-		this.kupovniKurs = kupovniKurs;
-		this.srednjiKurs = srednjiKurs;
-		this.skraceniNaziv = skraceniNaziv;
-	}
+	
 	public String getSifra() {
 		return sifra;
 	}

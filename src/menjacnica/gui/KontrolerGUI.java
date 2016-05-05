@@ -95,6 +95,12 @@ public class KontrolerGUI {
 		prozor.setLocationRelativeTo(null);
 	}
 	
+	public static void prikaziProzorZamena(){
+		IzvrsiZamenuGUI prozor = new IzvrsiZamenuGUI();
+		prozor.setVisible(true);
+		prozor.setLocationRelativeTo(null);
+	}
+	
 	public static List<Kurs> vratiSve(){
 		return menjacnica.getKursevi();
 	}

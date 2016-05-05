@@ -1,11 +1,14 @@
 package menjacnica;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Menjacnica {
 	
-private List<Kurs> kursevi;
+private  List<Kurs> kursevi;
 	
 	public Menjacnica() {
 		kursevi = new LinkedList<>();
@@ -32,5 +35,7 @@ private List<Kurs> kursevi;
 	public void setKursevi(List<Kurs> kursevi) {
 		this.kursevi = kursevi;
 	}
+	
+	
 
 }

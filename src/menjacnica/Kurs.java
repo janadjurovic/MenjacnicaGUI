@@ -65,5 +65,6 @@ public class Kurs {
 		this.skraceniNaziv = skraceniNaziv;
 	}
 
+	
 
 }

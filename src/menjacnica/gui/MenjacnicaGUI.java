@@ -135,6 +135,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton getBtnIzbrisiKurs() {
 		if (btnIzbrisiKurs == null) {
 			btnIzbrisiKurs = new JButton("Izbrisi kurs");
+			btnIzbrisiKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					KontrolerGUI.izbrisi();
+				}
+			});
 			btnIzbrisiKurs.setPreferredSize(new Dimension(99, 23));
 		}
 		return btnIzbrisiKurs;
@@ -290,5 +295,13 @@ public class MenjacnicaGUI extends JFrame {
 	
 	public void dodajText(String tekst){
 		textStatus.setText(textStatus.getText() + tekst + "\n");
+	}
+	
+	public int vratiSelektovanRed(){
+		return table.getSelectedRow();
+	}
+	
+	public void upisiUStatus(String string){
+		textStatus.append(string + "\n");
 	}
 }

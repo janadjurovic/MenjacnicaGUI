@@ -98,7 +98,33 @@ public class KontrolerGUI {
 	public static List<Kurs> vratiSve(){
 		return menjacnica.getKursevi();
 	}
+
+	public static void izbrisi() {
+		try {
+			int pozicija = prozor.vratiSelektovanRed();
+			
+			if(pozicija == -1){
+				JOptionPane.showMessageDialog(prozor, "Izaberite red koji zelite da izbrisete", "Greska", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			int povratnaVrednost = JOptionPane.showConfirmDialog(prozor, "Da li ste sigurni da zelite da izbrisete selektovani red?", "Upozorenje",JOptionPane.YES_NO_OPTION);
+			
+			if(povratnaVrednost == JOptionPane.YES_OPTION){
+				izbrisiKursIzMenjacnice(pozicija);
+				prozor.osvezi();
+				prozor.upisiUStatus("Izbrisan je red sa indeksom: " + pozicija + "!");
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(prozor, "Doslo je do greske prilikom brisanja!" + e.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		
+		
+	}
 	
+	public static void izbrisiKursIzMenjacnice(int pozicija){
+		menjacnica.izbrisiKurs(pozicija);
+	}
 	}
 
 

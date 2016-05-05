@@ -256,6 +256,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmIzbrisiKurs() {
 		if (mntmIzbrisiKurs == null) {
 			mntmIzbrisiKurs = new JMenuItem("Izbrisi kurs");
+			mntmIzbrisiKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					KontrolerGUI.izbrisi();
+				}
+			});
 		}
 		return mntmIzbrisiKurs;
 	}

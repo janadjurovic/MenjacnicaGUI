@@ -6,7 +6,14 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.ActionEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class IzvrsiZamenuGUI extends JFrame {
 	private JLabel lblKupovniKurs;
@@ -17,12 +24,20 @@ public class IzvrsiZamenuGUI extends JFrame {
 	private JLabel lblIznos;
 	private JLabel lblVrstaTransakcije;
 	private JRadioButton rdbtnKupujem;
-	private JRadioButton rdbtnProdajme;
+	private JRadioButton rdbtnProdajem;
 	private JTextField textIznos;
 	private JSlider slider;
 	private JButton btnZamena;
 	private JButton btnOdustani;
+	private ButtonGroup grupa;
 	public IzvrsiZamenuGUI() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				dispose();
+			}
+
+		});
 		setTitle("Izvrsi zamenu");
 		getContentPane().setLayout(null);
 		getContentPane().add(getLblKupovniKurs());
@@ -33,7 +48,7 @@ public class IzvrsiZamenuGUI extends JFrame {
 		getContentPane().add(getLblIznos());
 		getContentPane().add(getLblVrstaTransakcije());
 		getContentPane().add(getRdbtnKupujem());
-		getContentPane().add(getRdbtnProdajme());
+		getContentPane().add(getRdbtnProdajem());
 		getContentPane().add(getTextIznos());
 		getContentPane().add(getSlider());
 		getContentPane().add(getBtnZamena());
@@ -42,6 +57,14 @@ public class IzvrsiZamenuGUI extends JFrame {
 		setResizable(false);
 	}
 
+	private ButtonGroup getGrupa(){
+		if(grupa == null){
+			grupa = new ButtonGroup();
+			grupa.add(rdbtnKupujem);
+			grupa.add(rdbtnProdajem);
+		}
+		return grupa;
+	}
 	private JLabel getLblKupovniKurs() {
 		if (lblKupovniKurs == null) {
 			lblKupovniKurs = new JLabel("Kupovni kurs");
@@ -101,17 +124,18 @@ public class IzvrsiZamenuGUI extends JFrame {
 	}
 	private JRadioButton getRdbtnKupujem() {
 		if (rdbtnKupujem == null) {
+			
 			rdbtnKupujem = new JRadioButton("Kupovina");
 			rdbtnKupujem.setBounds(254, 111, 109, 23);
 		}
 		return rdbtnKupujem;
 	}
-	private JRadioButton getRdbtnProdajme() {
-		if (rdbtnProdajme == null) {
-			rdbtnProdajme = new JRadioButton("Prodaja");
-			rdbtnProdajme.setBounds(254, 137, 109, 23);
+	private JRadioButton getRdbtnProdajem() {
+		if (rdbtnProdajem == null) {
+			rdbtnProdajem = new JRadioButton("Prodaja");
+			rdbtnProdajem.setBounds(254, 137, 109, 23);
 		}
-		return rdbtnProdajme;
+		return rdbtnProdajem;
 	}
 	private JTextField getTextIznos() {
 		if (textIznos == null) {
@@ -124,6 +148,11 @@ public class IzvrsiZamenuGUI extends JFrame {
 	private JSlider getSlider() {
 		if (slider == null) {
 			slider = new JSlider();
+			slider.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent arg0) {
+					upisiUtxtIznos();
+				}
+			});
 			slider.setMajorTickSpacing(10);
 			slider.setMinorTickSpacing(5);
 			slider.setPaintLabels(true);
@@ -135,6 +164,12 @@ public class IzvrsiZamenuGUI extends JFrame {
 	private JButton getBtnZamena() {
 		if (btnZamena == null) {
 			btnZamena = new JButton("Izvrsi zamenu");
+			btnZamena.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					KontrolerGUI.zameni(vratiString());
+					dispose();
+				}
+			});
 			btnZamena.setBounds(28, 228, 126, 23);
 		}
 		return btnZamena;
@@ -142,8 +177,26 @@ public class IzvrsiZamenuGUI extends JFrame {
 	private JButton getBtnOdustani() {
 		if (btnOdustani == null) {
 			btnOdustani = new JButton("Odustani");
+			btnOdustani.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
 			btnOdustani.setBounds(264, 228, 89, 23);
 		}
 		return btnOdustani;
+	}
+	
+	public void upisiUtxtIznos(){
+		textIznos.setText(slider.getValue() + "");
+	}
+	
+	public String vratiString(){
+		if(rdbtnKupujem.isSelected()){
+			return comboBox.getSelectedItem() + " " + textIznos.getText() + " " + rdbtnKupujem.getText();
+		}else if(rdbtnProdajem.isSelected()){
+			return comboBox.getSelectedItem() + " " + textIznos.getText() + " " + rdbtnProdajem.getText();
+		}else
+			return "";
 	}
 }

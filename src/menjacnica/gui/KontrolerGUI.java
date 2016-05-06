@@ -131,6 +131,10 @@ public class KontrolerGUI {
 	public static void izbrisiKursIzMenjacnice(int pozicija){
 		menjacnica.izbrisiKurs(pozicija);
 	}
+	public static void zameni(String s) {
+		if(!s.isEmpty())
+			prozor.upisiUStatus("Izvrsena zamena: " + s);	
+	}
 	}
 
 
